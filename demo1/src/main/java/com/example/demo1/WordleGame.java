@@ -51,7 +51,8 @@ public class WordleGame extends Application {
         // Add initial row of squares for showing result
         addRowOfSquares(grid);
 
-        Scene scene = new Scene(grid, 500, 250); // Adjusted scene size to accommodate larger squares and input field
+        Scene scene = new Scene(grid, 270, 250); // Adjusted scene size to accommodate larger squares and input field
+        primaryStage.setResizable(false);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
@@ -70,10 +71,9 @@ public class WordleGame extends Application {
             resultTexts[currentTry][i] = new Text("");
             resultTexts[currentTry][i].setFont(Font.font(18));
             grid.add(resultTexts[currentTry][i], i, currentTry);
-
-            // Center text within the square
             GridPane.setHalignment(resultTexts[currentTry][i], javafx.geometry.HPos.CENTER); // Center horizontally
             GridPane.setValignment(resultTexts[currentTry][i], javafx.geometry.VPos.CENTER); // Center vertically
+
         }
     }
 
@@ -87,8 +87,12 @@ public class WordleGame extends Application {
 
         for (int i = 0; i < guess.length(); i++) {
             resultTexts[currentTry][i].setText(Character.toString(guess.charAt(i)));
-            if (guess.charAt(i) == SECRET_WORD.charAt(i)) {
+            char guessedChar = guess.charAt(i);
+            char secretChar = SECRET_WORD.charAt(i);
+            if (guessedChar == secretChar) {
                 resultTexts[currentTry][i].setFill(Color.GREEN);
+            } else if (SECRET_WORD.contains(Character.toString(guessedChar))) {
+                resultTexts[currentTry][i].setFill(Color.ORANGE);
             } else {
                 resultTexts[currentTry][i].setFill(Color.RED);
             }
