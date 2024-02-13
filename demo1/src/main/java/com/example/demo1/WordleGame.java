@@ -19,7 +19,7 @@ import java.util.Random;
 public class WordleGame extends Application {
 
     private static final int MAX_TRIES = 5; // Max number of tries allowed
-    private static String SECRET_WORD = "HELLO"; // Secret word to guess
+    private static String SECRET_WORD = "testy"; // Secret word to guess
 
 
     private static final String[] words = {
@@ -492,7 +492,8 @@ public class WordleGame extends Application {
     @Override
     public void start(Stage primaryStage) {
         primaryStage.setTitle("Wordle Game");
-
+        this.SECRET_WORD = generateRandomWord();
+        System.out.println(SECRET_WORD);
         GridPane grid = new GridPane();
         grid.setPadding(new Insets(10));
         grid.setHgap(10);
@@ -552,6 +553,13 @@ public class WordleGame extends Application {
             return;
         }
 
+        for(int i = 0; i < words.length; i++){
+            System.out.println(words[i]);
+            if(guess == words[i]){
+                break;
+            }
+        }
+
         for (int i = 0; i < guess.length(); i++) {
             resultTexts[currentTry][i].setText(Character.toString(guess.charAt(i)));
             char guessedChar = guess.charAt(i);
@@ -580,10 +588,6 @@ public class WordleGame extends Application {
         }
     }
 
-    // Method to display the result of the guess
-    private void displayResult(String message) {
-        System.out.println(message);
-    }
 
     private void displayWinMessage() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -605,7 +609,7 @@ public class WordleGame extends Application {
         public static String generateRandomWord() {
             Random random = new Random();
             int index = random.nextInt(words.length);
-            return words[index];
+            return words[index].toUpperCase();
         }
 
     public static void main(String[] args) {
