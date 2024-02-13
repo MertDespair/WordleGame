@@ -15,11 +15,21 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import java.util.Random;
+import javafx.scene.control.*;
+import javafx.scene.layout.BorderPane;
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+
 
 public class WordleGame extends Application {
 
     private static final int MAX_TRIES = 5; // Max number of tries allowed
     private static String SECRET_WORD = "testy"; // Secret word to guess
+
+    private static String Guessed_Letters = "";
 
 
     private static final String[] words = {
@@ -488,10 +498,13 @@ public class WordleGame extends Application {
     private Text[][] resultTexts = new Text[MAX_TRIES][SECRET_WORD.length()]; // Texts to show results
     private TextField inputField; // Input field for guessing
     private Button guessButton; // Button to make a guess
+    private Button helpButton;
+
 
     @Override
     public void start(Stage primaryStage) {
         primaryStage.setTitle("Wordle Game");
+
         this.SECRET_WORD = generateRandomWord();
         System.out.println(SECRET_WORD);
         GridPane grid = new GridPane();
@@ -515,11 +528,15 @@ public class WordleGame extends Application {
         guessButton.setOnAction(event -> checkGuess(grid));
         grid.add(guessButton, 0, MAX_TRIES + 2, SECRET_WORD.length(), 1);
 
+        Button helpButton = new Button("Help");
+        helpButton.setOnAction(event -> displayHelp());
+        grid.add(helpButton, SECRET_WORD.length() / 2, MAX_TRIES + 2, SECRET_WORD.length() / 2, 1);;
+
         // Add initial row of squares for showing result
         addRowOfSquares(grid);
 
         Scene scene = new Scene(grid, 270, 400); // Adjusted scene size to accommodate larger squares and input field
-        primaryStage.setResizable(false);
+        primaryStage.setResizable(false); // sets scene to be non resizable, because of formatting
         primaryStage.setScene(scene);
         primaryStage.show();
     }
@@ -553,19 +570,13 @@ public class WordleGame extends Application {
             return;
         }
 
-        for(int i = 0; i < words.length; i++){
-            System.out.println(words[i]);
-            if(guess == words[i]){
-                break;
-            }
-        }
-
         for (int i = 0; i < guess.length(); i++) {
             resultTexts[currentTry][i].setText(Character.toString(guess.charAt(i)));
             char guessedChar = guess.charAt(i);
             char secretChar = SECRET_WORD.charAt(i);
             if (guessedChar == secretChar) {
                 resultTexts[currentTry][i].setFill(Color.GREEN);
+                //Guessed_Letters.concat(resultTexts[currentTry][i].toString());
             } else if (SECRET_WORD.contains(Character.toString(guessedChar))) {
                 resultTexts[currentTry][i].setFill(Color.ORANGE);
             } else {
@@ -604,6 +615,20 @@ public class WordleGame extends Application {
         alert.setHeaderText(null);
         alert.setContentText("Sorry, you've run out of tries. The word was: " + SECRET_WORD);
         alert.showAndWait();
+    }
+
+    private void displayHelp(){
+        System.out.println(Guessed_Letters);
+        Stage helpStage = new Stage();
+        helpStage.setTitle("Help");
+
+        Label helpLabel = new Label("This is the help section.\nWrite your help content here.");
+        VBox helpLayout = new VBox(10);
+        helpLayout.getChildren().add(helpLabel);
+
+        Scene helpScene = new Scene(helpLayout, 300, 200);
+        helpStage.setScene(helpScene);
+        helpStage.show();
     }
 
         public static String generateRandomWord() {
