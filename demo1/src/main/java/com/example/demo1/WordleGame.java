@@ -15,13 +15,9 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import java.util.Random;
-import javafx.scene.control.*;
-import javafx.scene.layout.BorderPane;
-import javafx.application.Application;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
+
 
 
 public class WordleGame extends Application {
@@ -558,7 +554,6 @@ public class WordleGame extends Application {
             grid.add(resultTexts[currentTry][i], i, currentTry);
             GridPane.setHalignment(resultTexts[currentTry][i], javafx.geometry.HPos.CENTER); // Center horizontally
             GridPane.setValignment(resultTexts[currentTry][i], javafx.geometry.VPos.CENTER); // Center vertically
-
         }
     }
 
@@ -599,7 +594,6 @@ public class WordleGame extends Application {
         }
     }
 
-
     private void displayWinMessage() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Congratulations!");
@@ -618,17 +612,9 @@ public class WordleGame extends Application {
     }
 
     private void displayHelp(){
-        System.out.println(Guessed_Letters);
-        Stage helpStage = new Stage();
-        helpStage.setTitle("Help");
 
-        Label helpLabel = new Label("This is the help section.\nWrite your help content here.");
-        VBox helpLayout = new VBox(10);
-        helpLayout.getChildren().add(helpLabel);
+        WordleHelper Help = new WordleHelper();
 
-        Scene helpScene = new Scene(helpLayout, 300, 200);
-        helpStage.setScene(helpScene);
-        helpStage.show();
     }
 
         public static String generateRandomWord() {
@@ -636,7 +622,6 @@ public class WordleGame extends Application {
             int index = random.nextInt(words.length);
             return words[index].toUpperCase();
         }
-
     public static void main(String[] args) {
         launch(args);
     }
