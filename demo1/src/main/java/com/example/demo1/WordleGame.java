@@ -15,20 +15,20 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import java.util.Random;
-import javafx.scene.control.Label;
-import javafx.scene.layout.VBox;
 
 
 
 public class WordleGame extends Application {
 
     private static final int MAX_TRIES = 5; // Max number of tries allowed
-    private static String SECRET_WORD = "testy"; // Secret word to guess
+    protected static String SECRET_WORD = "testy"; // Secret word to guess
 
-    private static String Guessed_Letters = "";
+    protected static String SECRET_WORD_HELPER = "testy"; // Secret word to guess
+    protected static String SECRET_WORD_SOLUTION = "";
+    protected static String Guessed_Letters = "";
 
 
-    private static final String[] words = {
+    protected static final String[] words = {
                     "apple", "apron", "azure", "bacon", "baked", "baker", "baldy", "basic", "beach", "beard",
                     "beast", "beats", "began", "begin", "being", "belly", "bench", "bible", "biker", "birds",
                     "birth", "black", "blade", "blame", "blank", "blast", "blaze", "blend", "bless", "blind",
@@ -502,7 +502,9 @@ public class WordleGame extends Application {
         primaryStage.setTitle("Wordle Game");
 
         this.SECRET_WORD = generateRandomWord();
+        this.SECRET_WORD_HELPER = SECRET_WORD;
         System.out.println(SECRET_WORD);
+        System.out.println(SECRET_WORD_HELPER);
         GridPane grid = new GridPane();
         grid.setPadding(new Insets(10));
         grid.setHgap(10);
@@ -571,9 +573,12 @@ public class WordleGame extends Application {
             char secretChar = SECRET_WORD.charAt(i);
             if (guessedChar == secretChar) {
                 resultTexts[currentTry][i].setFill(Color.GREEN);
-                //Guessed_Letters.concat(resultTexts[currentTry][i].toString());
+                letterInword(guessedChar);
+                System.out.println(SECRET_WORD_SOLUTION);
             } else if (SECRET_WORD.contains(Character.toString(guessedChar))) {
                 resultTexts[currentTry][i].setFill(Color.ORANGE);
+                letterInword(guessedChar);
+                System.out.println(SECRET_WORD_SOLUTION);
             } else {
                 resultTexts[currentTry][i].setFill(Color.RED);
             }
@@ -614,14 +619,36 @@ public class WordleGame extends Application {
     private void displayHelp(){
 
         WordleHelper Help = new WordleHelper();
-
+        Help.findWords();
     }
+
+    private Boolean letterInword(char a){
+
+        for(int i = 0; i < SECRET_WORD_HELPER.length(); i++){
+            char currentChar = SECRET_WORD_HELPER.charAt(i);
+
+            if(currentChar == a){
+
+                SECRET_WORD_HELPER = SECRET_WORD_HELPER.replace(a,'.');
+                SECRET_WORD_SOLUTION += a;
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+
+
 
         public static String generateRandomWord() {
             Random random = new Random();
             int index = random.nextInt(words.length);
             return words[index].toUpperCase();
         }
+
+
+
     public static void main(String[] args) {
         launch(args);
     }
