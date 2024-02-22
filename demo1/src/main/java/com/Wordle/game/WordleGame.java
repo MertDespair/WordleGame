@@ -631,7 +631,6 @@ public class WordleGame extends Application {
 
                 SECRET_WORD_HELPER = SECRET_WORD_HELPER.replace(a,'.');
                 SECRET_WORD_SOLUTION += a;
-                //System.out.println(SECRET_WORD_HELPER);
                 return true;
             }
         }

@@ -16,7 +16,7 @@ public class WordleHelper extends WordleGame {
 
     private Button generate;
 
-    protected static String[] helperWords;
+    //protected static String[] helperWords;
 
 
 
@@ -53,7 +53,7 @@ public class WordleHelper extends WordleGame {
 
     public void findWords(){
 
-        VBox generateLayout = new VBox(10);
+        //VBox generateLayout = new VBox(10);
 
         for(int i = 0; i < words.length; i++){
             int LetterCounter = 0;
