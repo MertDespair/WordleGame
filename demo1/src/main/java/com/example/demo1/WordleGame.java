@@ -25,7 +25,7 @@ public class WordleGame extends Application {
 
     protected static String SECRET_WORD_HELPER = "testy"; // Secret word to guess
     protected static String SECRET_WORD_SOLUTION = "";
-    protected static String Guessed_Letters = "";
+    protected static int Guessed_Letters = 0;
 
     private static WordleHelper Help = new WordleHelper();
 
@@ -504,7 +504,7 @@ public class WordleGame extends Application {
 
         this.SECRET_WORD = generateRandomWord();
         this.SECRET_WORD_HELPER = SECRET_WORD;
-        System.out.println(SECRET_WORD);
+        //System.out.println(SECRET_WORD);
         //System.out.println(SECRET_WORD_HELPER);
         GridPane grid = new GridPane();
         grid.setPadding(new Insets(10));
@@ -564,6 +564,7 @@ public class WordleGame extends Application {
     // Method to check the guess and update the result
     private void checkGuess(GridPane grid) {
         String guess = inputField.getText().toUpperCase();
+        Guessed_Letters = 0;
         if (guess.length() != SECRET_WORD.length()) {
             return;
         }
@@ -575,11 +576,11 @@ public class WordleGame extends Application {
             if (guessedChar == secretChar) {
                 resultTexts[currentTry][i].setFill(Color.GREEN);
                 letterInword(guessedChar);
-                //System.out.println(SECRET_WORD_SOLUTION);
+                Guessed_Letters++;
             } else if (SECRET_WORD.contains(Character.toString(guessedChar))) {
                 resultTexts[currentTry][i].setFill(Color.ORANGE);
                 letterInword(guessedChar);
-                //System.out.println(SECRET_WORD_SOLUTION);
+                Guessed_Letters++;
             } else {
                 resultTexts[currentTry][i].setFill(Color.RED);
             }

@@ -5,10 +5,11 @@ import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
-
+import javafx.scene.control.ListView;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import javafx.scene.layout.Region;
 
 
 public class WordleHelper extends WordleGame {
@@ -57,15 +58,27 @@ public class WordleHelper extends WordleGame {
         for(int i = 0; i < words.length; i++){
             int LetterCounter = 0;
             String UpperCase = words[i].toUpperCase();
+            int Guessed_Letters_temp = Guessed_Letters;
             for(int j = 0; j < SECRET_WORD_SOLUTION.length(); j++){
 
-                if(SECRET_WORD_SOLUTION.charAt(j) == UpperCase.charAt(j)){
-                    LetterCounter++;
+                for(int k = 0; k < UpperCase.length(); k++){
+
+                        if (SECRET_WORD_SOLUTION.charAt(j) == UpperCase.charAt(k)) {
+
+                            if(Guessed_Letters_temp > 0){
+                                LetterCounter++;
+                            }
+                            Guessed_Letters_temp--;
+                            if(Guessed_Letters_temp == 0){
+                                break;
+                            }
+                        }
                 }
-                if(j == SECRET_WORD_SOLUTION.length() -1  && LetterCounter > 0){
+                if(j == SECRET_WORD_SOLUTION.length() - 1  && LetterCounter > 0){
                     Solution.put(UpperCase,LetterCounter);
                 }
             }
+
             if(i == words.length - 1){
                 for (String key : Solution.keySet()) {
                     switch(Solution.get(key)) {
@@ -85,32 +98,49 @@ public class WordleHelper extends WordleGame {
                             break;
                     }
                 }
-                System.out.println("OneLetter:");
-                for(int a = 0; a < OneLetterWords.size(); a++){
-                    System.out.println(OneLetterWords.get(a));
-                }
-                System.out.println("TwoLetter:");
-                for(int b = 0; b < TwoLetterWords.size(); b++){
-                    System.out.println(TwoLetterWords.get(b));
-                }
-                System.out.println("ThreeLetter:");
-                for(int c = 0; c < ThreeLetterWords.size(); c++){
-                    System.out.println(ThreeLetterWords.get(c));
-                }
-                System.out.println("FourLetter:");
-                for(int d = 0; d < FourLetterWords.size(); d++){
-                    System.out.println(FourLetterWords.get(d));
-                }
                 Solution.clear();
-
-
-                //System.out.println(Solution);
             }
         }
 
-
-
+        ShowWordList();
 
     }
+
+    public void ShowWordList(){
+        Stage wordListStage = new Stage();
+        wordListStage.setTitle("Word Lists");
+
+        VBox wordListLayout = new VBox(10);
+
+        //listviews of the corresponding arrays
+        ListView<String> fourLetterListView = new ListView<>();
+        fourLetterListView.getItems().addAll(FourLetterWords);
+        ListView<String> threeLetterListView = new ListView<>();
+        threeLetterListView.getItems().addAll(ThreeLetterWords);
+        ListView<String> twoLetterListView = new ListView<>();
+        twoLetterListView.getItems().addAll(TwoLetterWords);
+        ListView<String> oneLetterListView = new ListView<>();
+        oneLetterListView.getItems().addAll(OneLetterWords);
+
+
+        //Headlines between the boxes
+        Label fourLetterLabel = new Label("Four Letter Words:");
+        Label threeLetterLabel = new Label("Three Letter Words:");
+        Label twoLetterLabel = new Label("Two Letter Words:");
+        Label oneLetterLabel = new Label("One Letter Words:");
+
+        //padding at bottom for style
+        Region bottomPadding = new Region();
+        bottomPadding.setPrefHeight(20); // Adjust the height of the padding as needed
+
+        wordListLayout.getChildren().addAll(fourLetterLabel, fourLetterListView, threeLetterLabel, threeLetterListView, twoLetterLabel, twoLetterListView, oneLetterLabel, oneLetterListView, bottomPadding);
+
+        Scene wordListScene = new Scene(wordListLayout, 400, 600);
+        wordListStage.setScene(wordListScene);
+
+        wordListStage.show();
+
+    }
+
 }
 
