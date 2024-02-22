@@ -1,3 +1,5 @@
-###Wordle Game
+Wordle Game
 
-This is a worlde game that I programmed for a course at uni that i took in undergrad. Feel free to use or get inspired. It is written in Java and uses JavaFX for GUI.
+A simple Wordle game, that has also a wordle helper implemented to help people, that are not so savvy in the english language or the game.
+As GUI JavaFx was used.
+This was an assignment in an University class. Feel free to use/copy/modify as you like.
