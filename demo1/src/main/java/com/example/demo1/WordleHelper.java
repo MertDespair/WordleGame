@@ -7,6 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -15,6 +16,8 @@ public class WordleHelper extends WordleGame {
     private Button generate;
 
     protected static String[] helperWords;
+
+    private static HashMap<String, Integer> Solution = new HashMap<String, Integer>();
 
     public void WordleHelperShowWindow(){
         Stage helpStage = new Stage();
@@ -44,25 +47,21 @@ public class WordleHelper extends WordleGame {
         VBox generateLayout = new VBox(10);
 
         for(int i = 0; i < words.length; i++){
-            String help = "";
-            List<String> solutionWords = new ArrayList<String>();
+            int LetterCounter = 0;
             String UpperCase = words[i].toUpperCase();
             for(int j = 0; j < SECRET_WORD_SOLUTION.length(); j++){
 
-
                 if(SECRET_WORD_SOLUTION.charAt(j) == UpperCase.charAt(j)){
-
-                    help += UpperCase.charAt(j);
-                    solutionWords.add(UpperCase);
+                    LetterCounter++;
                 }
-                if(j == SECRET_WORD_SOLUTION.length()){
-                    System.out.println(help);
-                    solutionWords.add(UpperCase);
+                if(j == SECRET_WORD_SOLUTION.length() -1  && LetterCounter > 0){
+                    Solution.put(UpperCase,LetterCounter);
                 }
             }
+            if(i == words.length - 1){
+                System.out.println(Solution);
+            }
         }
-
-
     }
 }
 
