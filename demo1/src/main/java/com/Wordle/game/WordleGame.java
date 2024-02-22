@@ -571,9 +571,11 @@ public class WordleGame extends Application {
             char secretChar = SECRET_WORD.charAt(i);
             if (guessedChar == secretChar) {
                 resultTexts[currentTry][i].setFill(Color.GREEN);
+                letterInword(guessedChar);
                 Guessed_Letters++;
             } else if (SECRET_WORD.contains(Character.toString(guessedChar))) {
                 resultTexts[currentTry][i].setFill(Color.ORANGE);
+                letterInword(guessedChar);
                 Guessed_Letters++;
             } else {
                 resultTexts[currentTry][i].setFill(Color.RED);
@@ -622,6 +624,20 @@ public class WordleGame extends Application {
         return words[index].toUpperCase();
     }
 
+    private Boolean letterInword(char a){
+
+        for(int i = 0; i < SECRET_WORD_HELPER.length(); i++){
+            char currentChar = SECRET_WORD_HELPER.charAt(i);
+
+            if(currentChar == a){
+
+                SECRET_WORD_HELPER = SECRET_WORD_HELPER.replace(a,'.');
+                SECRET_WORD_SOLUTION += a;
+                return true;
+            }
+        }
+        return false;
+    }
 
 
     public static void main(String[] args) {
