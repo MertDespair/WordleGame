@@ -6,13 +6,17 @@ import javafx.stage.Stage;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 
+import java.util.ArrayList;
+import java.util.List;
+
+
 public class WordleHelper extends WordleGame {
 
     private Button generate;
 
     protected static String[] helperWords;
 
-    public WordleHelper(){
+    public void WordleHelperShowWindow(){
         Stage helpStage = new Stage();
         helpStage.setTitle("Help");
 
@@ -21,7 +25,7 @@ public class WordleHelper extends WordleGame {
         // Create the Generate button
         generate = new Button("Generate");
         // Set an action for the generate button to open another window
-        generate.setOnAction(e -> openNewWindow());
+        generate.setOnAction(e -> findWords());
 
         // Create a VBox layout to hold the label and button
         VBox helpLayout = new VBox(10);
@@ -40,37 +44,25 @@ public class WordleHelper extends WordleGame {
         VBox generateLayout = new VBox(10);
 
         for(int i = 0; i < words.length; i++){
-
+            String help = "";
+            List<String> solutionWords = new ArrayList<String>();
+            String UpperCase = words[i].toUpperCase();
             for(int j = 0; j < SECRET_WORD_SOLUTION.length(); j++){
 
-                if(SECRET_WORD_SOLUTION.charAt(j) == words[i].charAt(j)){
 
-                    // Add the word to the layout
-                    Label wordLabel = new Label(words[i]);
-                    generateLayout.getChildren().add(wordLabel);
-                    break; // Exit the inner loop once the word is added
+                if(SECRET_WORD_SOLUTION.charAt(j) == UpperCase.charAt(j)){
 
+                    help += UpperCase.charAt(j);
+                    solutionWords.add(UpperCase);
+                }
+                if(j == SECRET_WORD_SOLUTION.length()){
+                    System.out.println(help);
+                    solutionWords.add(UpperCase);
                 }
             }
         }
-    }
 
-    private void openNewWindow() {
-        // Create a new stage for the generated window
-        Stage generateStage = new Stage();
-        generateStage.setTitle("Generated Window");
 
-        // Create a label for the generated window
-        Label generateLabel = new Label("This is a generated window!");
-
-        // Create a VBox layout for the generated window
-        VBox generateLayout = new VBox(10);
-        generateLayout.getChildren().add(generateLabel);
-
-        // Create a scene for the generated window
-        Scene generateScene = new Scene(generateLayout, 300, 200);
-        generateStage.setScene(generateScene);
-        // Show the generated window
-        generateStage.show();
     }
 }
+

@@ -27,6 +27,7 @@ public class WordleGame extends Application {
     protected static String SECRET_WORD_SOLUTION = "";
     protected static String Guessed_Letters = "";
 
+    private static WordleHelper Help = new WordleHelper();
 
     protected static final String[] words = {
                     "apple", "apron", "azure", "bacon", "baked", "baker", "baldy", "basic", "beach", "beard",
@@ -504,7 +505,7 @@ public class WordleGame extends Application {
         this.SECRET_WORD = generateRandomWord();
         this.SECRET_WORD_HELPER = SECRET_WORD;
         System.out.println(SECRET_WORD);
-        System.out.println(SECRET_WORD_HELPER);
+        //System.out.println(SECRET_WORD_HELPER);
         GridPane grid = new GridPane();
         grid.setPadding(new Insets(10));
         grid.setHgap(10);
@@ -574,11 +575,11 @@ public class WordleGame extends Application {
             if (guessedChar == secretChar) {
                 resultTexts[currentTry][i].setFill(Color.GREEN);
                 letterInword(guessedChar);
-                System.out.println(SECRET_WORD_SOLUTION);
+                //System.out.println(SECRET_WORD_SOLUTION);
             } else if (SECRET_WORD.contains(Character.toString(guessedChar))) {
                 resultTexts[currentTry][i].setFill(Color.ORANGE);
                 letterInword(guessedChar);
-                System.out.println(SECRET_WORD_SOLUTION);
+                //System.out.println(SECRET_WORD_SOLUTION);
             } else {
                 resultTexts[currentTry][i].setFill(Color.RED);
             }
@@ -617,9 +618,7 @@ public class WordleGame extends Application {
     }
 
     private void displayHelp(){
-
-        WordleHelper Help = new WordleHelper();
-        Help.findWords();
+        Help.WordleHelperShowWindow();
     }
 
     private Boolean letterInword(char a){
@@ -631,6 +630,7 @@ public class WordleGame extends Application {
 
                 SECRET_WORD_HELPER = SECRET_WORD_HELPER.replace(a,'.');
                 SECRET_WORD_SOLUTION += a;
+                //System.out.println(SECRET_WORD_HELPER);
                 return true;
             }
         }
