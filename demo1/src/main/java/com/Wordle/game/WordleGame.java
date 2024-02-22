@@ -1,5 +1,4 @@
-package com.example.demo1;
-
+package com.Wordle.game;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -20,12 +19,12 @@ import java.util.Random;
 
 public class WordleGame extends Application {
 
-    private static final int MAX_TRIES = 5; // Max number of tries allowed
-    protected static String SECRET_WORD = "testy"; // Secret word to guess
+    private static final int MAX_TRIES = 5;
+    protected static String SECRET_WORD = "hello"; // Secret word to guess
 
-    protected static String SECRET_WORD_HELPER = "testy"; // Secret word to guess
-    protected static String SECRET_WORD_SOLUTION = "";
-    protected static int Guessed_Letters = 0;
+    protected static String SECRET_WORD_HELPER = "hello"; // Secret word to guess
+    protected static String SECRET_WORD_SOLUTION = ""; //String in which correct guessed letters are stored
+    protected static int Guessed_Letters = 0; //Counter variable to display amount of correctly guessed letters
 
     private static WordleHelper Help = new WordleHelper();
 
@@ -491,11 +490,10 @@ public class WordleGame extends Application {
                     "zlote", "zoeae", "zoeal", "zoeas", "zombi", "zonae", "zonal", "zoned", "zoner", "zones",
                     "zonic", "zonks", "zooey", "zooid", "zooks", "zooms", "zoons", "zooty", "zoril", "zoris",
                     "zowie", "zuzim" };
-            private int currentTry = 0; // Current try count
-    private Text[][] resultTexts = new Text[MAX_TRIES][SECRET_WORD.length()]; // Texts to show results
-    private TextField inputField; // Input field for guessing
-    private Button guessButton; // Button to make a guess
-    private Button helpButton;
+            private int currentTry = 0;
+    private Text[][] resultTexts = new Text[MAX_TRIES][SECRET_WORD.length()];
+    private TextField inputField;
+    private Button guessButton;
 
 
     @Override
@@ -504,8 +502,6 @@ public class WordleGame extends Application {
 
         this.SECRET_WORD = generateRandomWord();
         this.SECRET_WORD_HELPER = SECRET_WORD;
-        //System.out.println(SECRET_WORD);
-        //System.out.println(SECRET_WORD_HELPER);
         GridPane grid = new GridPane();
         grid.setPadding(new Insets(10));
         grid.setHgap(10);
@@ -575,11 +571,9 @@ public class WordleGame extends Application {
             char secretChar = SECRET_WORD.charAt(i);
             if (guessedChar == secretChar) {
                 resultTexts[currentTry][i].setFill(Color.GREEN);
-                letterInword(guessedChar);
                 Guessed_Letters++;
             } else if (SECRET_WORD.contains(Character.toString(guessedChar))) {
                 resultTexts[currentTry][i].setFill(Color.ORANGE);
-                letterInword(guessedChar);
                 Guessed_Letters++;
             } else {
                 resultTexts[currentTry][i].setFill(Color.RED);
@@ -595,7 +589,7 @@ public class WordleGame extends Application {
                 displayLoseMessage();
                 guessButton.setDisable(true);
             } else {
-                addRowOfSquares(grid); // Add a new row of squares
+                addRowOfSquares(grid);
                 inputField.clear();
             }
         }
@@ -609,7 +603,7 @@ public class WordleGame extends Application {
         alert.showAndWait();
     }
 
-    // Method to display a lose message
+
     private void displayLoseMessage() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Game Over");
@@ -622,31 +616,11 @@ public class WordleGame extends Application {
         Help.WordleHelperShowWindow();
     }
 
-    private Boolean letterInword(char a){
-
-        for(int i = 0; i < SECRET_WORD_HELPER.length(); i++){
-            char currentChar = SECRET_WORD_HELPER.charAt(i);
-
-            if(currentChar == a){
-
-                SECRET_WORD_HELPER = SECRET_WORD_HELPER.replace(a,'.');
-                SECRET_WORD_SOLUTION += a;
-                //System.out.println(SECRET_WORD_HELPER);
-                return true;
-            }
-        }
-        return false;
+    public static String generateRandomWord() {
+        Random random = new Random();
+        int index = random.nextInt(words.length);
+        return words[index].toUpperCase();
     }
-
-
-
-
-
-        public static String generateRandomWord() {
-            Random random = new Random();
-            int index = random.nextInt(words.length);
-            return words[index].toUpperCase();
-        }
 
 
 

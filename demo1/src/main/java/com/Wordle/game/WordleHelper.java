@@ -1,4 +1,4 @@
-package com.example.demo1;
+package com.Wordle.game;
 
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -12,52 +12,53 @@ import java.util.List;
 import javafx.scene.layout.Region;
 
 
+
+//Helper Class, that does everything to set up the help section of the game
 public class WordleHelper extends WordleGame {
 
     private Button generate;
 
-    protected static String[] helperWords;
 
-
-
+    //Arrays that store the calculated words depending on the amount of letters
+    //that are included in the corresponding words
     List<String> OneLetterWords = new ArrayList<String>();
     List<String> TwoLetterWords = new ArrayList<String>();
     List<String> ThreeLetterWords = new ArrayList<String>();
     List<String> FourLetterWords = new ArrayList<String>();
 
-
+    //hashmap that corresponds the words with the amount of correct letters that are included
+    // eg. user input Hello (e and o is correct)
+    // Ultra : 1
+    // Elif : 2
     private static HashMap<String, Integer> Solution = new HashMap<String, Integer>();
 
+
+    //Function that sets up the help Window for general navigation with help
     public void WordleHelperShowWindow(){
+
         Stage helpStage = new Stage();
         helpStage.setTitle("Help");
 
-        Label helpLabel = new Label("Try reading a dictionary!\n or visit www.word.tips/wordle");
+        Label helpLabel = new Label("Try reading a dictionary!");
 
-        // Create the Generate button
         generate = new Button("Generate");
-        // Set an action for the generate button to open another window
         generate.setOnAction(e -> findWords());
 
-        // Create a VBox layout to hold the label and button
         VBox helpLayout = new VBox(10);
-        // Add the label and generate button to the VBox
         helpLayout.getChildren().addAll(helpLabel, generate);
 
-        // Create the scene and set it to the help stage
         Scene helpScene = new Scene(helpLayout, 300, 200);
         helpStage.setScene(helpScene);
-        // Show the help stage
         helpStage.show();
     }
 
     public void findWords(){
 
-        VBox generateLayout = new VBox(10);
-
         for(int i = 0; i < words.length; i++){
             int LetterCounter = 0;
             String UpperCase = words[i].toUpperCase();
+            //temporary variable that is set up for this function, so that every word can be checked against
+            //the amount of guessed letters. Guessed_Letters stems from the WordleGame class
             int Guessed_Letters_temp = Guessed_Letters;
             for(int j = 0; j < SECRET_WORD_SOLUTION.length(); j++){
 
@@ -79,6 +80,7 @@ public class WordleHelper extends WordleGame {
                 }
             }
 
+            //Switch case to add the corresponding words to the sorted arrays
             if(i == words.length - 1){
                 for (String key : Solution.keySet()) {
                     switch(Solution.get(key)) {
@@ -98,6 +100,7 @@ public class WordleHelper extends WordleGame {
                             break;
                     }
                 }
+                //necessary as to not add double entries
                 Solution.clear();
             }
         }
@@ -141,6 +144,5 @@ public class WordleHelper extends WordleGame {
         wordListStage.show();
 
     }
-
 }
 
