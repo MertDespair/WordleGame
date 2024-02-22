@@ -17,6 +17,14 @@ public class WordleHelper extends WordleGame {
 
     protected static String[] helperWords;
 
+
+
+    List<String> OneLetterWords = new ArrayList<String>();
+    List<String> TwoLetterWords = new ArrayList<String>();
+    List<String> ThreeLetterWords = new ArrayList<String>();
+    List<String> FourLetterWords = new ArrayList<String>();
+
+
     private static HashMap<String, Integer> Solution = new HashMap<String, Integer>();
 
     public void WordleHelperShowWindow(){
@@ -59,9 +67,50 @@ public class WordleHelper extends WordleGame {
                 }
             }
             if(i == words.length - 1){
-                System.out.println(Solution);
+                for (String key : Solution.keySet()) {
+                    switch(Solution.get(key)) {
+                        case 1:
+                            OneLetterWords.add(key);
+                            break;
+                        case 2:
+                            TwoLetterWords.add(key);
+                            break;
+                        case 3:
+                            ThreeLetterWords.add(key);
+                            break;
+                        case 4:
+                            FourLetterWords.add(key);
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                System.out.println("OneLetter:");
+                for(int a = 0; a < OneLetterWords.size(); a++){
+                    System.out.println(OneLetterWords.get(a));
+                }
+                System.out.println("TwoLetter:");
+                for(int b = 0; b < TwoLetterWords.size(); b++){
+                    System.out.println(TwoLetterWords.get(b));
+                }
+                System.out.println("ThreeLetter:");
+                for(int c = 0; c < ThreeLetterWords.size(); c++){
+                    System.out.println(ThreeLetterWords.get(c));
+                }
+                System.out.println("FourLetter:");
+                for(int d = 0; d < FourLetterWords.size(); d++){
+                    System.out.println(FourLetterWords.get(d));
+                }
+                Solution.clear();
+
+
+                //System.out.println(Solution);
             }
         }
+
+
+
+
     }
 }
 
