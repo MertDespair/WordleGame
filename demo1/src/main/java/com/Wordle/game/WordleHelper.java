@@ -1,4 +1,4 @@
-package com.example.demo1;
+package com.Wordle.game;
 
 import javafx.scene.Scene;
 import javafx.scene.control.Button;

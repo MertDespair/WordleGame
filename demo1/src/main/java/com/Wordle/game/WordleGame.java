@@ -1,4 +1,4 @@
-package com.example.demo1;
+package com.Wordle.game;
 
 import javafx.application.Application;
 import javafx.geometry.Insets;
