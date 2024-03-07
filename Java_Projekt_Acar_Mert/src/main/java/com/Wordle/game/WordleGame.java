@@ -19,11 +19,11 @@ import java.util.Random;
 
 public class WordleGame extends Application {
 
-    private static final int MAX_TRIES = 5;
-    protected static String SECRET_WORD = "hello"; // Secret word to guess
+    private static final int maxTries = 5;
+    protected static String secretWord = "hello"; // Secret word to guess
 
-    protected static String SECRET_WORD_HELPER = "hello"; // Secret word to guess
-    protected static String SECRET_WORD_SOLUTION = ""; //String in which correct guessed letters are stored
+    protected static String secretWordHelper = "hello"; // Secret word to guess
+    protected static String secretWordSolution = ""; //String in which correct guessed letters are stored
     protected static int Guessed_Letters = 0; //Counter variable to display amount of correctly guessed letters
 
     private static WordleHelper Help = new WordleHelper();
@@ -491,7 +491,7 @@ public class WordleGame extends Application {
                     "zonic", "zonks", "zooey", "zooid", "zooks", "zooms", "zoons", "zooty", "zoril", "zoris",
                     "zowie", "zuzim" };
             private int currentTry = 0;
-    private Text[][] resultTexts = new Text[MAX_TRIES][SECRET_WORD.length()];
+    private Text[][] resultTexts = new Text[maxTries][secretWord.length()];
     private TextField inputField;
     private Button guessButton;
 
@@ -500,14 +500,14 @@ public class WordleGame extends Application {
     public void start(Stage primaryStage) {
         primaryStage.setTitle("Wordle Game");
 
-        this.SECRET_WORD = generateRandomWord();
-        this.SECRET_WORD_HELPER = SECRET_WORD;
+        this.secretWord = generateRandomWord();
+        this.secretWordHelper = secretWord;
         GridPane grid = new GridPane();
         grid.setPadding(new Insets(10));
         grid.setHgap(10);
 
         // Set column constraints for consistent spacing
-        for (int i = 0; i < SECRET_WORD.length(); i++) {
+        for (int i = 0; i < secretWord.length(); i++) {
             ColumnConstraints column = new ColumnConstraints();
             column.setPercentWidth(20); // Each column takes 20% width
             grid.getColumnConstraints().add(column);
@@ -516,16 +516,16 @@ public class WordleGame extends Application {
         // Input field for guessing
         inputField = new TextField();
         inputField.setPrefWidth(100);
-        grid.add(inputField, 0, MAX_TRIES + 1, SECRET_WORD.length(), 1);
+        grid.add(inputField, 0, maxTries + 1, secretWord.length(), 1);
 
         // Button to make a guess
         guessButton = new Button("Guess");
         guessButton.setOnAction(event -> checkGuess(grid));
-        grid.add(guessButton, 0, MAX_TRIES + 2, SECRET_WORD.length(), 1);
+        grid.add(guessButton, 0, maxTries + 2, secretWord.length(), 1);
 
         Button helpButton = new Button("Help");
         helpButton.setOnAction(event -> displayHelp());
-        grid.add(helpButton, SECRET_WORD.length() / 2, MAX_TRIES + 2, SECRET_WORD.length() / 2, 1);;
+        grid.add(helpButton, secretWord.length() / 2, maxTries + 2, secretWord.length() / 2, 1);;
 
         // Add initial row of squares for showing result
         addRowOfSquares(grid);
@@ -538,7 +538,7 @@ public class WordleGame extends Application {
 
     // Method to add a row of squares for showing result
     private void addRowOfSquares(GridPane grid) {
-        for (int i = 0; i < SECRET_WORD.length(); i++) {
+        for (int i = 0; i < secretWord.length(); i++) {
             Rectangle square = new Rectangle(40, 40, Color.LIGHTGRAY); // Increased size to 40x40
             square.setStroke(Color.BLACK);
             square.setStrokeWidth(1.5);
@@ -561,19 +561,19 @@ public class WordleGame extends Application {
     private void checkGuess(GridPane grid) {
         String guess = inputField.getText().toUpperCase();
         Guessed_Letters = 0;
-        if (guess.length() != SECRET_WORD.length()) {
+        if (guess.length() != secretWord.length()) {
             return;
         }
 
         for (int i = 0; i < guess.length(); i++) {
             resultTexts[currentTry][i].setText(Character.toString(guess.charAt(i)));
             char guessedChar = guess.charAt(i);
-            char secretChar = SECRET_WORD.charAt(i);
+            char secretChar = secretWord.charAt(i);
             if (guessedChar == secretChar) {
                 resultTexts[currentTry][i].setFill(Color.GREEN);
                 letterInword(guessedChar);
                 Guessed_Letters++;
-            } else if (SECRET_WORD.contains(Character.toString(guessedChar))) {
+            } else if (secretWord.contains(Character.toString(guessedChar))) {
                 resultTexts[currentTry][i].setFill(Color.ORANGE);
                 letterInword(guessedChar);
                 Guessed_Letters++;
@@ -582,12 +582,12 @@ public class WordleGame extends Application {
             }
         }
 
-        if (guess.equals(SECRET_WORD)) {
+        if (guess.equals(secretWord)) {
             displayWinMessage();
             guessButton.setDisable(true);
         } else {
             currentTry++;
-            if (currentTry >= MAX_TRIES) {
+            if (currentTry >= maxTries) {
                 displayLoseMessage();
                 guessButton.setDisable(true);
             } else {
@@ -601,7 +601,7 @@ public class WordleGame extends Application {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Congratulations!");
         alert.setHeaderText(null);
-        alert.setContentText("You've guessed the word: " + SECRET_WORD);
+        alert.setContentText("You've guessed the word: " + secretWord);
         alert.showAndWait();
     }
 
@@ -610,7 +610,7 @@ public class WordleGame extends Application {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Game Over");
         alert.setHeaderText(null);
-        alert.setContentText("Sorry, you've run out of tries. The word was: " + SECRET_WORD);
+        alert.setContentText("Sorry, you've run out of tries. The word was: " + secretWord);
         alert.showAndWait();
     }
 
@@ -626,13 +626,13 @@ public class WordleGame extends Application {
 
     private Boolean letterInword(char a){
 
-        for(int i = 0; i < SECRET_WORD_HELPER.length(); i++){
-            char currentChar = SECRET_WORD_HELPER.charAt(i);
+        for(int i = 0; i < secretWordHelper.length(); i++){
+            char currentChar = secretWordHelper.charAt(i);
 
             if(currentChar == a){
 
-                SECRET_WORD_HELPER = SECRET_WORD_HELPER.replace(a,'.');
-                SECRET_WORD_SOLUTION += a;
+                secretWordHelper = secretWordHelper.replace(a,'.');
+                secretWordSolution += a;
                 return true;
             }
         }

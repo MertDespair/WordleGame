@@ -60,11 +60,11 @@ public class WordleHelper extends WordleGame {
             //temporary variable that is set up for this function, so that every word can be checked against
             //the amount of guessed letters. Guessed_Letters stems from the WordleGame class
             int Guessed_Letters_temp = Guessed_Letters;
-            for(int j = 0; j < SECRET_WORD_SOLUTION.length(); j++){
+            for(int j = 0; j < secretWordSolution.length(); j++){
 
                 for(int k = 0; k < UpperCase.length(); k++){
 
-                        if (SECRET_WORD_SOLUTION.charAt(j) == UpperCase.charAt(k)) {
+                        if (secretWordSolution.charAt(j) == UpperCase.charAt(k)) {
 
                             if(Guessed_Letters_temp > 0){
                                 LetterCounter++;
@@ -75,7 +75,7 @@ public class WordleHelper extends WordleGame {
                             }
                         }
                 }
-                if(j == SECRET_WORD_SOLUTION.length() - 1  && LetterCounter > 0){
+                if(j == secretWordSolution.length() - 1  && LetterCounter > 0){
                     Solution.put(UpperCase,LetterCounter);
                 }
             }
@@ -134,7 +134,7 @@ public class WordleHelper extends WordleGame {
 
         //padding at bottom for style
         Region bottomPadding = new Region();
-        bottomPadding.setPrefHeight(20); // Adjust the height of the padding as needed
+        bottomPadding.setPrefHeight(20); // Adjustment of the height of the padding
 
         wordListLayout.getChildren().addAll(fourLetterLabel, fourLetterListView, threeLetterLabel, threeLetterListView, twoLetterLabel, twoLetterListView, oneLetterLabel, oneLetterListView, bottomPadding);
 
