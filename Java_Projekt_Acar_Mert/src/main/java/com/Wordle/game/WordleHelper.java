@@ -21,10 +21,10 @@ public class WordleHelper extends WordleGame {
 
     //Arrays that store the calculated words depending on the amount of letters
     //that are included in the corresponding words
-    List<String> OneLetterWords = new ArrayList<String>();
-    List<String> TwoLetterWords = new ArrayList<String>();
-    List<String> ThreeLetterWords = new ArrayList<String>();
-    List<String> FourLetterWords = new ArrayList<String>();
+    private List<String> OneLetterWords = new ArrayList<String>();
+    private List<String> TwoLetterWords = new ArrayList<String>();
+    private List<String> ThreeLetterWords = new ArrayList<String>();
+    private List<String> FourLetterWords = new ArrayList<String>();
 
     //hashmap that corresponds the words with the amount of correct letters that are included
     // eg. user input Hello (e and o is correct)
@@ -59,7 +59,7 @@ public class WordleHelper extends WordleGame {
             String UpperCase = words[i].toUpperCase();
             //temporary variable that is set up for this function, so that every word can be checked against
             //the amount of guessed letters. Guessed_Letters stems from the WordleGame class
-            int Guessed_Letters_temp = Guessed_Letters;
+            int Guessed_Letters_temp = guessedLetters;
             for(int j = 0; j < secretWordSolution.length(); j++){
 
                 for(int k = 0; k < UpperCase.length(); k++){

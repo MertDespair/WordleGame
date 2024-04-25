@@ -19,12 +19,12 @@ import java.util.Random;
 
 public class WordleGame extends Application {
 
-    private static final int maxTries = 5;
+    private final int maxTries = 5;
     protected static String secretWord = "hello"; // Secret word to guess
 
     protected static String secretWordHelper = "hello"; // Secret word to guess
     protected static String secretWordSolution = ""; //String in which correct guessed letters are stored
-    protected static int Guessed_Letters = 0; //Counter variable to display amount of correctly guessed letters
+    protected static int guessedLetters = 0; //Counter variable to display amount of correctly guessed letters
 
     private static WordleHelper Help = new WordleHelper();
 
@@ -560,7 +560,7 @@ public class WordleGame extends Application {
     // Method to check the guess and update the result
     private void checkGuess(GridPane grid) {
         String guess = inputField.getText().toUpperCase();
-        Guessed_Letters = 0;
+        guessedLetters = 0;
         if (guess.length() != secretWord.length()) {
             return;
         }
@@ -572,11 +572,11 @@ public class WordleGame extends Application {
             if (guessedChar == secretChar) {
                 resultTexts[currentTry][i].setFill(Color.GREEN);
                 letterInword(guessedChar);
-                Guessed_Letters++;
+                guessedLetters++;
             } else if (secretWord.contains(Character.toString(guessedChar))) {
                 resultTexts[currentTry][i].setFill(Color.ORANGE);
                 letterInword(guessedChar);
-                Guessed_Letters++;
+                guessedLetters++;
             } else {
                 resultTexts[currentTry][i].setFill(Color.RED);
             }
